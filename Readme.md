@@ -22,3 +22,11 @@
 ### Currency Exchange Service
 - [http://localhost:8000/](http://localhost:8000)
 - [http://localhost:8000/currency-exchange/from/EUR/to/USD](http://localhost:8000/currency-exchange/from/EUR/to/USD)
+
+#### H2 Database
+- `data.sql` contains some dummy data
+- use [http://localhost:8000/h2-console](http://localhost:8000/h2-console) to view the database
+	- Dirver Class: org.h2.Driver
+	- JDBC URL: jdbc:h2:mem:testdb
+	- User Name: sa
+	- Password:
