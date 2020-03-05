@@ -16,7 +16,8 @@ public class CurrencyConversionBean {
 		super();
 	}
 
-	public CurrencyConversionBean(Long id, String from, String to, BigDecimal conversionMultiple, BigDecimal quantity,
+	public CurrencyConversionBean(Long id, String from, String to, 
+			BigDecimal conversionMultiple, BigDecimal quantity,
 			BigDecimal totalCalculatedAmount, int port) {
 		super();
 		this.id = id;
@@ -83,4 +84,13 @@ public class CurrencyConversionBean {
 	public void setPort(int port) {
 		this.port = port;
 	}
+
+	@Override
+	public String toString() {
+		return "CurrencyConversionBean [id=" + id + ", from=" + from + ", to=" + to + ", conversionMultiple="
+				+ conversionMultiple + ", quantity=" + quantity + ", totalCalculatedAmount=" + totalCalculatedAmount
+				+ ", port=" + port + "]";
+	}
+	
+	
 }

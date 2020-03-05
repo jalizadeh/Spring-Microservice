@@ -30,3 +30,7 @@
 	- JDBC URL: jdbc:h2:mem:testdb
 	- User Name: sa
 	- Password:
+
+
+### Currency Conversion Service
+After a request on [http://localhost:8100/currency-convertor/from/{from}/to/{to}/quantity/1000](http://localhost:8100/currency-convertor/from/{from}/to/{to}/quantity/1000), `from` and `to` parameters will be sent to **CES** [http://localhost:8000/currency-exchange/from/{from}/to/{to}](http://localhost:8000/currency-exchange/from/{from}/to/{to}), where has the database of the `conversionMultiple` value. Then the response will be calculated in **CCS**.
