@@ -33,35 +33,36 @@
 
 
 ### Currency Conversion Service
-After a request on [http://localhost:8100/currency-convertor/from/{from}/to/{to}/quantity/1000](http://localhost:8100/currency-convertor/from/{from}/to/{to}/quantity/1000), `from` and `to` parameters will be sent to **CES** [http://localhost:8000/currency-exchange/from/{from}/to/{to}](http://localhost:8000/currency-exchange/from/{from}/to/{to}), where has the database of the `conversionMultiple` value. Then the response will be calculated in **CCS**.
+- After a request on [http://localhost:8100/currency-convertor/from/{from}/to/{to}/quantity/1000](http://localhost:8100/currency-convertor/from/{from}/to/{to}/quantity/1000), `from` and `to` parameters will be sent to **CES** [http://localhost:8000/currency-exchange/from/{from}/to/{to}](http://localhost:8000/currency-exchange/from/{from}/to/{to}), where has the database of the `conversionMultiple` value. Then the response will be calculated in **CCS**.
+- With **Feign** this process becomes much simpler.
 
 
 #### Ribbon Load Balancer
-**Ribbon** tries to access one of the defined instances (in `application.properties`) at each request, which leads to balance the pressure on the running instances of **CES**.
+**Ribbon** tries to access one of the defined instances (in `application.properties` [hard-coded] or **NamingServer**) at each request, which leads to balance the client side pressure on the running instances of **CES**.
 
 
 
 ### Netflix Eureka Naming Server
+- Service registration and discovery
 - [http://localhost:8761](http://localhost:8761)
 
 To register clinets in the Eureka server, do the followings:
 1. Add `eureka` dependency
 ```
 <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-eureka -->
-		<dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-starter-eureka</artifactId>
-		    <version>1.4.7.RELEASE</version>
-		</dependency>
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-eureka</artifactId>
+	<version>1.4.7.RELEASE</version>
+</dependency>
 ```
 2. In each client, enable the dicovery
 ```java
 @SpringBootApplication
-@EnableFeignClients("com.jalizadeh.microservices.currencyconversionservice")
 @EnableDiscoveryClient
-public class CurrencyConversionServiceApplication {
+public class Application {
 	public static void main(String[] args) {
-		SpringApplication.run(CurrencyConversionServiceApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }
 ```
@@ -69,3 +70,10 @@ public class CurrencyConversionServiceApplication {
 ```
 eureka.client.service-url.default-zone=http://localhost:8761/eureka
 ```
+
+
+### Netflix Zuul API Gateways
+- Authentication, Authorization & Security
+- Rate Limits
+- Fault Tolerance
+- Service Aggregation
