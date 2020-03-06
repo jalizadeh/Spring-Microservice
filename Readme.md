@@ -20,25 +20,29 @@
 - [http://localhost:8888/limits-service/product](http://localhost:8080/limits/product)
 
 ### Currency Exchange Service
+This service holds the database of exchanges and their rates.
+
 - [http://localhost:8000/](http://localhost:8000)
 - [http://localhost:8000/currency-exchange/from/EUR/to/USD](http://localhost:8000/currency-exchange/from/EUR/to/USD)
 
-#### H2 Database
-- `data.sql` contains some dummy data
-- use [http://localhost:8000/h2-console](http://localhost:8000/h2-console) to view the database
-	- Dirver Class: org.h2.Driver
-	- JDBC URL: jdbc:h2:mem:testdb
-	- User Name: sa
-	- Password:
+- H2 Database
+	- `data.sql` contains some dummy data
+	- use [http://localhost:8000/h2-console](http://localhost:8000/h2-console) to view the database
+		- Dirver Class: org.h2.Driver
+		- JDBC URL: jdbc:h2:mem:testdb
+		- User Name: sa
+		- Password:
 
 
 ### Currency Conversion Service
+This service provides the calculated amounts based on the requested exchange parameters.
+
 - After a request on [http://localhost:8100/currency-convertor/from/{from}/to/{to}/quantity/1000](http://localhost:8100/currency-convertor/from/{from}/to/{to}/quantity/1000), `from` and `to` parameters will be sent to **CES** [http://localhost:8000/currency-exchange/from/{from}/to/{to}](http://localhost:8000/currency-exchange/from/{from}/to/{to}), where has the database of the `conversionMultiple` value. Then the response will be calculated in **CCS**.
 - With **Feign** this process becomes much simpler.
 
 
-#### Ribbon Load Balancer
-**Ribbon** tries to access one of the defined instances (in `application.properties` [hard-coded] or **NamingServer**) at each request, which leads to balance the client side pressure on the running instances of **CES**.
+-  Ribbon Load Balancer
+	**Ribbon** tries to access one of the defined instances (in `application.properties` [hard-coded] or **NamingServer**) at each request, which leads to balance the client side pressure on the running instances of **CES**.
 
 
 
@@ -80,3 +84,10 @@ eureka.client.service-url.default-zone=http://localhost:8761/eureka
 
 - Instead of direct request, the request can be routed via Zuul with following link:
 	- [http://localhost:8765/{application-name}/{uri}](http://localhost:8765/{application-name}/{uri})
+
+
+### Order of running applications
+1. Netflix Eureka Naming Server
+2. Netflix Zuul API Gateways
+3. Currency Exchange Service
+4. Currency Conversion Service
