@@ -43,3 +43,29 @@ After a request on [http://localhost:8100/currency-convertor/from/{from}/to/{to}
 
 ### Netflix Eureka Naming Server
 - [http://localhost:8761](http://localhost:8761)
+
+To register clinets in the Eureka server, do the followings:
+1. Add `eureka` dependency
+```
+<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-eureka -->
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-eureka</artifactId>
+		    <version>1.4.7.RELEASE</version>
+		</dependency>
+```
+2. In each client, enable the dicovery
+```java
+@SpringBootApplication
+@EnableFeignClients("com.jalizadeh.microservices.currencyconversionservice")
+@EnableDiscoveryClient
+public class CurrencyConversionServiceApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(CurrencyConversionServiceApplication.class, args);
+	}
+}
+```
+3. In `application.properties` add
+```
+eureka.client.service-url.default-zone=http://localhost:8761/eureka
+```
