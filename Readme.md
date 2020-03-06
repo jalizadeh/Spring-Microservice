@@ -38,3 +38,8 @@ After a request on [http://localhost:8100/currency-convertor/from/{from}/to/{to}
 
 #### Ribbon Load Balancer
 **Ribbon** tries to access one of the defined instances (in `application.properties`) at each request, which leads to balance the pressure on the running instances of **CES**.
+
+
+
+### Netflix Eureka Naming Server
+- [http://localhost:8761](http://localhost:8761)
