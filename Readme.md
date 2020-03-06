@@ -77,3 +77,6 @@ eureka.client.service-url.default-zone=http://localhost:8761/eureka
 - Rate Limits
 - Fault Tolerance
 - Service Aggregation
+
+- Instead of direct request, the request can be routed via Zuul with following link:
+	- [http://localhost:8765/{application-name}/{uri}](http://localhost:8765/{application-name}/{uri})
