@@ -20,6 +20,7 @@ public class CurrencyConversionController {
 	@Autowired
 	private CurrencyExchangeServiceProxy proxy;
 	
+	/*
 	@GetMapping("currency-convertor/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrency(
 			@PathVariable String from,
@@ -43,9 +44,9 @@ public class CurrencyConversionController {
 				quantity.multiply(body.getConversionMultiple()),
 				body.getPort());
 	}
+	*/
 	
-	
-	@GetMapping("currency-convertor-feign/from/{from}/to/{to}/quantity/{quantity}")
+	@GetMapping("currency-convertor/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrencyFeign(
 			@PathVariable String from,
 			@PathVariable String to,
